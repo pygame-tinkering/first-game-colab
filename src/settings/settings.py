@@ -43,11 +43,11 @@ class Settings:
     def resolution(self) -> list[int, str]:
         return list(self._resolution.values())
 
-    @resolution.setter
-    def resolution(self, values: tuple[int, int] | list[int, int]):
-        # Need to check if value is within the monitor size before setting
-        for key, value in zip(self._resolution.keys(), values):
-            self._resolution[key] = value
+    # @resolution.setter
+    # def resolution(self, values: tuple[int, int] | list[int, int]):
+    #     # Need to check if value is within the monitor size before setting
+    #     for key, value in zip(self._resolution.keys(), values):
+    #         self._resolution[key] = value
 
 
 
