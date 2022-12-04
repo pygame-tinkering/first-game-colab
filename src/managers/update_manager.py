@@ -1,9 +1,10 @@
 
 from typing import Iterable, Any
 from src.settings import Settings
+from .manager import Manager
 import pygame
 
-class UpdateManager:
+class UpdateManager(Manager):
     def __init__(self):
         self.settings = Settings()
         self.clock = pygame.time.Clock()
@@ -18,7 +19,6 @@ class UpdateManager:
     def update(self, objects: Iterable | Any):
         self.clock.tick(self.settings.frame_rate)
         self._update(objects)
-
 
 
 

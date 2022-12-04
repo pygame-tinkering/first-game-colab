@@ -3,11 +3,11 @@ import pygame
 
 from .settings import Settings
 from .entities import Entity
-from .control import MouseKeyboard
 from .managers import EventManager
 from .managers import RenderManager
 from .managers import UpdateManager
 from .managers import UIManager
+from .managers import ObjectManager
 from .ui import Button
 from .ui import Font
 
@@ -20,9 +20,10 @@ class Game:
         self.render_manager = RenderManager()
         self.update_manager = UpdateManager()
         self.ui_manager = UIManager()
+        self.object_manager = ObjectManager()
         self.player = Entity(
             position=(self.settings.width // 2, self.settings.height // 2),
-            control=MouseKeyboard(),
+            control=self.settings.controller.value,
             frame_rate=1,
         )
         self._create_ui()

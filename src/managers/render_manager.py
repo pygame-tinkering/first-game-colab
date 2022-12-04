@@ -1,9 +1,10 @@
 
 from typing import Iterable
 from src.settings import Settings
+from .manager import Manager
 import pygame
 
-class RenderManager:
+class RenderManager(Manager):
     def __init__(self):
         self.settings = Settings()
 

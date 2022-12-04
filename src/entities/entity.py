@@ -47,6 +47,9 @@ class Entity:
             self.animations.state = PlayerState.RIGHT
             self.rect.x += self.speed
 
+    def shoot(self):
+        pass
+
     def update(self) -> None:
         self.animations.update(self.frame_rate)
         self.movement()

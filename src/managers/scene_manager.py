@@ -1,8 +1,8 @@
 
 
+from .manager import Manager
 
-
-class SceneManager:
+class SceneManager(Manager):
     def __init__(self):
         self.scenes = {}
 
@@ -12,6 +12,7 @@ class SceneManager:
 
     def return_to(self, scene):
         pass
+
 
 
 

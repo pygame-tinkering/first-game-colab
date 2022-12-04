@@ -1,7 +1,8 @@
 
 from typing import Iterable, Callable
+from .manager import Manager
 
-class EventManager:
+class EventManager(Manager):
     def __init__(self):
         self.subscribers = {}
         self.registered_events = {}
