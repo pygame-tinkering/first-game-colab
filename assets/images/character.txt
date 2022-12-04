@@ -1,0 +1,21 @@
+{
+	"character": {
+        "size": {
+          "width": 32,
+          "height": 32
+        },
+        "names": {
+          "up": 4,
+          "upleft": 4,
+          "upright": 4,
+          "down": 4,
+          "downleft": 4,
+          "downright": 4,
+          "left": 4,
+          "right": 4,
+          "rollup": 4,
+          "rollupleft": 4,
+          "rollupright": 4
+        }
+    }
+}
