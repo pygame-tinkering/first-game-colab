@@ -13,7 +13,6 @@ class Animation:
         self.frame_count = 0
 
     def current_surface(self) -> pygame.Surface:
-        #print(self.state)
         return self.animations[self.state.value][self.index]
 
     def get_rect(self, **kwargs) -> pygame.Rect:

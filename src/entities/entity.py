@@ -17,24 +17,22 @@ class Entity:
         self.speed = 5
 
     def check_state(self):
-        if self.control.direction['left']:
-            self.animations.state = PlayerState.LEFT
-        if self.control.direction['right']:
-            self.animations.state = PlayerState.RIGHT
-
         if self.control.direction['up'] and self.control.direction['left']:
             self.animations.state = PlayerState.UPLEFT
         elif self.control.direction['up'] and self.control.direction['right']:
             self.animations.state = PlayerState.UPRIGHT
-        elif self.control.direction['up']:
-            self.animations.state = PlayerState.UP
-
-        if self.control.direction['down'] and self.control.direction['left']:
+        elif self.control.direction['down'] and self.control.direction['left']:
             self.animations.state = PlayerState.DOWNLEFT
         elif self.control.direction['down'] and self.control.direction['right']:
             self.animations.state = PlayerState.DOWNRIGHT
+        elif self.control.direction['up']:
+            self.animations.state = PlayerState.UP
         elif self.control.direction['down']:
             self.animations.state = PlayerState.DOWN
+        elif self.control.direction['left']:
+            self.animations.state = PlayerState.LEFT
+        elif self.control.direction['right']:
+            self.animations.state = PlayerState.RIGHT
 
     def movement(self):
         if self.control.direction['up']:
