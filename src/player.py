@@ -7,10 +7,10 @@ class Player(pygame.sprite.Sprite):
 		super().__init__(group)
 
 		# general setup
-		self.image = pygame.image.load(r"C:\Users\Roni\Documents\Python Scripts\colab-game\first-game-colab\assets\imgs\planes\ship_001.png").convert_alpha()
+		self.image = pygame.image.load(r".\assets\images\planes\ship_001.png").convert_alpha()
 		self.image = pygame.transform.scale(self.image, (64,64))
 		self.o_image = self.image
-		self.rect = self.image.get_rect(center = pos)
+		self.rect = self.image.get_rect(center=pos)
 		# self.image = rot_center(self.image, 45, self.rect.center[0], self.rect.center[1])
 		# movement attributes
 		self.direction = pygame.math.Vector2()
