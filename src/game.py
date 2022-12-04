@@ -17,9 +17,9 @@ class Game:
         self.settings = Settings()
         self.screen = pygame.display.get_surface()
         self.running = True
-        self.event_handler = EventManager()
-        self.render_handler = RenderManager()
-        self.update_handler = UpdateManager()
+        self.event_manager = EventManager()
+        self.render_manager = RenderManager()
+        self.update_manager = UpdateManager()
         self.ui_manager = UIManager()
         self.player = Entity(
             position=(self.settings.width // 2, self.settings.height // 2),
@@ -45,14 +45,14 @@ class Game:
         )
 
     def _register_events(self):
-        self.event_handler.subscribe(pygame.QUIT,
+        self.event_manager.subscribe(pygame.QUIT,
                                      self, lambda event: self._quit(event)
                                      )
-        self.event_handler.subscribe([pygame.KEYDOWN,
+        self.event_manager.subscribe([pygame.KEYDOWN,
                                       pygame.KEYUP],
                                      self.player,
                                      lambda event: self.player.control.keyboard(event))
-        self.event_handler.subscribe([pygame.MOUSEBUTTONDOWN,
+        self.event_manager.subscribe([pygame.MOUSEBUTTONDOWN,
                                       pygame.MOUSEBUTTONUP,
                                       pygame.MOUSEMOTION,
                                       pygame.MOUSEWHEEL],
@@ -64,9 +64,9 @@ class Game:
 
     def run(self) -> None:
         while self.running:
-            self.event_handler.notify(pygame.event.get())
-            self.update_handler.update([self.player, self.ui_manager.elements])
-            self.render_handler.render(self.screen, [self.player, self.ui_manager.elements])
+            self.event_manager.notify(pygame.event.get())
+            self.update_manager.update([self.player, self.ui_manager.elements])
+            self.render_manager.render(self.screen, [self.player, self.ui_manager.elements])
 
 
 
