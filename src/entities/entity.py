@@ -17,33 +17,33 @@ class Entity:
         self.speed = 5
 
     def check_state(self):
-        if self.control.direction['up'] and self.control.direction['left']:
+        if self.control.direction.up and self.control.direction.left:
             self.animations.state = PlayerState.UPLEFT
-        elif self.control.direction['up'] and self.control.direction['right']:
+        elif self.control.direction.up and self.control.direction.right:
             self.animations.state = PlayerState.UPRIGHT
-        elif self.control.direction['down'] and self.control.direction['left']:
+        elif self.control.direction.down and self.control.direction.left:
             self.animations.state = PlayerState.DOWNLEFT
-        elif self.control.direction['down'] and self.control.direction['right']:
+        elif self.control.direction.down and self.control.direction.right:
             self.animations.state = PlayerState.DOWNRIGHT
-        elif self.control.direction['up']:
+        elif self.control.direction.up:
             self.animations.state = PlayerState.UP
-        elif self.control.direction['down']:
+        elif self.control.direction.down:
             self.animations.state = PlayerState.DOWN
-        elif self.control.direction['left']:
+        elif self.control.direction.left:
             self.animations.state = PlayerState.LEFT
-        elif self.control.direction['right']:
+        elif self.control.direction.right:
             self.animations.state = PlayerState.RIGHT
 
     def movement(self):
-        if self.control.direction['up']:
+        if self.control.direction.up:
             self.rect.y -= self.speed
-        if self.control.direction['down']:
+        if self.control.direction.down:
             self.animations.state = PlayerState.DOWN
             self.rect.y += self.speed
-        if self.control.direction['left']:
+        if self.control.direction.left:
             self.animations.state = PlayerState.LEFT
             self.rect.x -= self.speed
-        if self.control.direction['right']:
+        if self.control.direction.right:
             self.animations.state = PlayerState.RIGHT
             self.rect.x += self.speed
 
