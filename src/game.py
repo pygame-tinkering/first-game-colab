@@ -1,7 +1,6 @@
 
 import pygame
 
-
 from .settings import Settings
 from .entities import Entity
 from .control import MouseKeyboard

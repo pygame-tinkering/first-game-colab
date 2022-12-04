@@ -1,30 +1,39 @@
 
-from __future__ import annotations  # For python <= 3.10
-# from typing import Self # For python 3.11
+from typing import Self
 from os import path
+from .animation_state import AnimationState
 import json
 import pygame
 
-
 class Animation:
-    def __init__(self, animations: dict):
+    def __init__(self, animations: dict, animation_states: AnimationState):
         self.animations = animations
-        self.state = 'up'
+        self._state = animation_states
         self.index = 0
-        self.frame_rate_count = 0
+        self.frame_count = 0
 
     def current_surface(self) -> pygame.Surface:
-        return self.animations[self.state][self.index]
+        #print(self.state)
+        return self.animations[self.state.value][self.index]
 
     def get_rect(self, **kwargs) -> pygame.Rect:
         return self.current_surface().get_rect(**kwargs)
 
-    def update(self, frame_rate: int):
-        self.frame_rate_count += 1
-        if self.frame_rate_count > len(self.animations[self.state]) / frame_rate:
-            self.frame_rate_count = 0
-            self.index = (self.index + 1) % len(self.animations[self.state])
+    @property
+    def state(self):
+        return self._state
 
+    @state.setter
+    def state(self, state: AnimationState):
+        if state is not self._state:
+            self._state = state
+            #self.frame_count = 0
+
+    def update(self, frame_rate: int):
+        self.frame_count += 1
+        if self.frame_count > len(self.animations[self.state.value]) / frame_rate:
+            self.frame_count = 0
+            self.index = (self.index + 1) % len(self.animations[self.state.value])
 
     @staticmethod
     def sprite_sheet(size: dict, names: dict, sheet: pygame.Surface, scale=1):
@@ -43,14 +52,14 @@ class Animation:
         return animations
 
     @classmethod
-    def create(cls, sheet_name: str, data_path: path, sprite_path: path) -> Animation:
+    def create(cls, sheet_name: str, data_path: path, sprite_path: path, animation_state: AnimationState) -> Self:
         with open(data_path, 'r') as meta_data:
             data = json.load(meta_data)
             size, names = data.get(sheet_name).values()
             sheet = pygame.image.load(sprite_path).convert_alpha()
             animations = Animation.sprite_sheet(size, names, sheet, 3)
 
-        return cls(animations)
+        return cls(animations, animation_state)
 
 
 
