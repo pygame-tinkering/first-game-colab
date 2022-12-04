@@ -1,8 +1,8 @@
 
 from typing import Iterable, Callable
-from .manager import Manager
+from ..singleton import Singleton
 
-class EventManager(Manager):
+class EventSingleton(Singleton):
     def __init__(self):
         self.subscribers = {}
         self.registered_events = {}

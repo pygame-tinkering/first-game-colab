@@ -1,8 +1,8 @@
 
 
-from .manager import Manager
+from ..singleton import Singleton
 
-class SceneManager(Manager):
+class SceneSingleton(Singleton):
     def __init__(self):
         self.scenes = {}
 

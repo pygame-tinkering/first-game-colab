@@ -2,9 +2,9 @@
 
 
 from ..ui import UI
-from .manager import Manager
+from src.singleton import Singleton
 
-class UIManager(Manager):
+class UISingleton(Singleton):
     def __init__(self):
         self.elements = []
 

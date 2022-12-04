@@ -1,10 +1,10 @@
 
 from typing import Iterable
-from src.settings import Settings
-from .manager import Manager
+from ..settings import Settings
+from ..singleton import Singleton
 import pygame
 
-class RenderManager(Manager):
+class RenderSingleton(Singleton):
     def __init__(self):
         self.settings = Settings()
 

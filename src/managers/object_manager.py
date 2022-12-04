@@ -1,8 +1,8 @@
 
 from typing import Iterable
-from .manager import Manager
+from src.singleton import Singleton
 
-class ObjectManager(Manager):
+class ObjectSingleton(Singleton):
     def __init__(self):
         self.objects = {}
 

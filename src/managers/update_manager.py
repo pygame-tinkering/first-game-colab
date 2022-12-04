@@ -1,10 +1,10 @@
 
 from typing import Iterable, Any
-from src.settings import Settings
-from .manager import Manager
+from ..settings import Settings
+from ..singleton import Singleton
 import pygame
 
-class UpdateManager(Manager):
+class UpdateSingleton(Singleton):
     def __init__(self):
         self.settings = Settings()
         self.clock = pygame.time.Clock()
