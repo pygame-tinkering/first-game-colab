@@ -1,7 +1,7 @@
 
 
 from .mouse_keyboard import *
-from .control import Control
+from .control_type import ControlType
 
 
 

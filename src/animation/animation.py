@@ -1,6 +1,7 @@
 
 from typing import Self
 from os import path
+from .animation_loader import AnimationLoader
 from .animation_state import AnimationState
 import json
 import pygame
@@ -51,9 +52,10 @@ class Animation:
         return animations
 
     @classmethod
-    def create(cls, sheet_name: str, data_path: path, sprite_path: path, animation_state: AnimationState) -> Self:
+    def create(cls, sheet_name: str) -> Self:
+        data_path, sprite_path, animation_state = AnimationLoader.load(sheet_name)
         with open(data_path, 'r') as meta_data:
-            data = json.load(meta_data)
+            data = json.load(meta_data)  # Need to load this data only once
             size, names = data.get(sheet_name).values()
             sheet = pygame.image.load(sprite_path).convert_alpha()
             animations = Animation.sprite_sheet(size, names, sheet, 3)

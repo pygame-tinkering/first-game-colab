@@ -2,7 +2,7 @@
 
 from ..singleton import Singleton
 
-class SceneSingleton(Singleton):
+class SceneManager(Singleton):
     def __init__(self):
         self.scenes = {}
 

@@ -4,7 +4,7 @@
 from ..ui import UI
 from src.singleton import Singleton
 
-class UISingleton(Singleton):
+class UIManager(Singleton):
     def __init__(self):
         self.elements = []
 

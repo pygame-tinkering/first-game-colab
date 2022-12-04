@@ -3,11 +3,11 @@ import pygame
 
 from .settings import Settings
 from .entities import Entity
-from .managers import EventSingleton
-from .managers import RenderSingleton
-from .managers import UpdateSingleton
-from .managers import UISingleton
-from .managers import ObjectSingleton
+from .managers import EventManager
+from .managers import RenderManager
+from .managers import UpdateManager
+from .managers import UIManager
+from .managers import ObjectManager
 from .ui import Button
 from .ui import Font
 
@@ -16,12 +16,13 @@ class Game:
         self.settings = Settings()
         self.screen = pygame.display.get_surface()
         self.running = True
-        self.event_manager = EventSingleton()
-        self.render_manager = RenderSingleton()
-        self.update_manager = UpdateSingleton()
-        self.ui_manager = UISingleton()
-        self.object_manager = ObjectSingleton()
-        self.player = Entity(
+        self.event_manager = EventManager()
+        self.render_manager = RenderManager()
+        self.update_manager = UpdateManager()
+        self.ui_manager = UIManager()
+        self.object_manager = ObjectManager()
+        self.player = self.object_manager.create(
+            'character',
             position=(self.settings.width // 2, self.settings.height // 2),
             control=self.settings.controller.value,
             frame_rate=1,

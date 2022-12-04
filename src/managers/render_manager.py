@@ -4,7 +4,7 @@ from ..settings import Settings
 from ..singleton import Singleton
 import pygame
 
-class RenderSingleton(Singleton):
+class RenderManager(Singleton):
     def __init__(self):
         self.settings = Settings()
 

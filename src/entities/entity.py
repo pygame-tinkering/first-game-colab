@@ -1,20 +1,25 @@
 
-from ..animation import Animation
-from ..control import MouseKeyboard
-from assets import CHARACTER_PATH, CHARACTER_DATA_PATH
+from ..animation import Animation, AnimationState
+from ..control import Controller
 from ..animation import PlayerState
+from os import path
+import pygame
 
 class Entity:
     def __init__(self,
                  position: list[int, int] | tuple[int, int],
-                 control: MouseKeyboard | None = None,
+                 control: Controller | None = None,
                  frame_rate: int = 60,
                  ):
-        self.animations = Animation.create('character', CHARACTER_DATA_PATH, CHARACTER_PATH, PlayerState.DOWN)
-        self.rect = self.animations.get_rect(center=position)
+        self.animations = {}
+        self.rect = pygame.Rect(position, (0, 0))
         self.control = control
         self.frame_rate = frame_rate
         self.speed = 5
+
+    def load_animations(self, sheet_name: str):
+        self.animations = Animation.create(sheet_name)
+        self.rect = self.animations.get_rect(center=self.rect.center)
 
     def check_state(self):
         if self.control.direction.up and self.control.direction.left:

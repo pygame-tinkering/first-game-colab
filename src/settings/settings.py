@@ -1,7 +1,7 @@
 
 from typing import Self
 import pygame
-from ..control import Control
+from ..control import ControlType
 
 from ..constants import \
     SCREEN_WIDTH, \
@@ -21,7 +21,7 @@ class Settings:
         self.caption = CAPTION
         self.flags = pygame.SHOWN
         self.frame_rate = FRAME_RATE
-        self.controller = Control.MOUSEKEYBOARD
+        self.controller = ControlType.MOUSEKEYBOARD
         self.bg_color = BG_COLOR
         self.fg_color = FG_COLOR
         self.font_name = FONT_NAME

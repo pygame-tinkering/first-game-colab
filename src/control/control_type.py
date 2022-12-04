@@ -5,7 +5,7 @@
 from enum import Enum
 from .mouse_keyboard import MouseKeyboard
 
-class Control(Enum):
+class ControlType(Enum):
     MOUSEKEYBOARD = MouseKeyboard()
 
 

@@ -1,6 +1,5 @@
 
-from enum import Enum
-from src.animation import AnimationState
+from .animation_state import AnimationState
 
 
 class PlayerState(AnimationState):

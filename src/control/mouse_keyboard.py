@@ -1,12 +1,9 @@
 
 import pygame
 from types import SimpleNamespace
+from .controller import Controller
 
-class MouseKeyboard:
-    def __init__(self):
-        self.direction = SimpleNamespace(**{direction: False for direction in ['up', 'down', 'left', 'right']})
-        self.roll = False
-
+class MouseKeyboard(Controller):
     def keyboard(self, event: pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
             if event.key in [pygame.K_UP, pygame.K_w]:

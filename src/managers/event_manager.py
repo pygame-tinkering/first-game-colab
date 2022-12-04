@@ -2,7 +2,7 @@
 from typing import Iterable, Callable
 from ..singleton import Singleton
 
-class EventSingleton(Singleton):
+class EventManager(Singleton):
     def __init__(self):
         self.subscribers = {}
         self.registered_events = {}

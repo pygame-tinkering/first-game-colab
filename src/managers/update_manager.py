@@ -4,7 +4,7 @@ from ..settings import Settings
 from ..singleton import Singleton
 import pygame
 
-class UpdateSingleton(Singleton):
+class UpdateManager(Singleton):
     def __init__(self):
         self.settings = Settings()
         self.clock = pygame.time.Clock()
