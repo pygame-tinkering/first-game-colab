@@ -1,3 +1,4 @@
 
-from .game import Game
-from .settings import Settings
+from .game import *
+from .settings import *
+from .managers import *

@@ -1,3 +1,6 @@
+
+from __future__ import annotations  # For python <= 3.10
+# from typing import Self # For python 3.11
 import pygame
 from ..constants import \
     SCREEN_WIDTH, \
@@ -20,6 +23,11 @@ class Settings:
         self.bg_color = BG_COLOR
         self.fg_color = FG_COLOR
         self.font_name = FONT_NAME
+
+    def __new__(cls) -> Settings:
+        if not hasattr(cls, 'instance'):
+            cls.instance = super(type(cls), cls).__new__(cls)
+        return cls.instance
 
     @property
     def width(self) -> int:

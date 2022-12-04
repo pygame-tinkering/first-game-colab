@@ -1,26 +1,73 @@
 
 import pygame
+
+
 from .settings import Settings
+from .entities import Entity
+from .control import MouseKeyboard
+from .managers import EventManager
+from .managers import RenderManager
+from .managers import UpdateManager
+from .managers import UIManager
+from .ui import Button
+from .ui import Font
 
 class Game:
-    def __init__(self, settings: Settings):
+    def __init__(self):
+        self.settings = Settings()
         self.screen = pygame.display.get_surface()
-        self.settings = settings
-        self.clock = pygame.time.Clock()
         self.running = True
+        self.event_handler = EventManager()
+        self.render_handler = RenderManager()
+        self.update_handler = UpdateManager()
+        self.ui_manager = UIManager()
+        self.player = Entity(
+            position=(self.settings.width // 2, self.settings.height // 2),
+            control=MouseKeyboard(),
+            frame_rate=1,
+        )
+        self._create_ui()
+        self._register_events()
 
-    def handle_events(self) -> None:
-        events = pygame.event.get()
-        for event in events:
-            if event.type == pygame.QUIT:
-                self.running = False
+    def _create_ui(self):
+        self.ui_manager.add(
+            Button(
+                size=(150,50),
+                position=(100, 50),
+                bg_color='red',
+                fg_color='white',
+                font=Font(
+                    name=self.settings.font_name,
+                    size=24,
+                    text='Button'
+                )
+            )
+        )
+
+    def _register_events(self):
+        self.event_handler.subscribe(pygame.QUIT,
+                                     self, lambda event: self._quit(event)
+                                     )
+        self.event_handler.subscribe([pygame.KEYDOWN,
+                                      pygame.KEYUP],
+                                     self.player,
+                                     lambda event: self.player.control.keyboard(event))
+        self.event_handler.subscribe([pygame.MOUSEBUTTONDOWN,
+                                      pygame.MOUSEBUTTONUP,
+                                      pygame.MOUSEMOTION,
+                                      pygame.MOUSEWHEEL],
+                                     self.player,
+                                     lambda event: self.player.control.mouse(event))
+
+    def _quit(self, event: int = None) -> None:
+        self.running = False
 
     def run(self) -> None:
         while self.running:
-            self.handle_events()
-            self.clock.tick(self.settings.frame_rate)
+            self.event_handler.notify(pygame.event.get())
+            self.update_handler.update([self.player, self.ui_manager.elements])
+            self.render_handler.render(self.screen, [self.player, self.ui_manager.elements])
 
-            pygame.display.flip()
 
 
 

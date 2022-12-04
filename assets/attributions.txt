@@ -1,10 +1,10 @@
 
 FONTS:
-
+https://gossamore.itch.io/clarity
 
 
 IMAGES:
-
+https://gamekrazzy.itch.io/8-direction-top-down-character
 
 
 MUSICS:

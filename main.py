@@ -16,7 +16,7 @@ def main():
     )
 
     from src import Game
-    game = Game(settings)
+    game = Game()
     game.run()
     pygame.quit()
     quit()
