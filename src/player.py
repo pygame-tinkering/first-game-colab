@@ -1,13 +1,13 @@
 import pygame
 import math 
-
+from assets import paths
 
 class Player(pygame.sprite.Sprite):
 	def __init__(self, pos, group):
 		super().__init__(group)
 
 		# general setup
-		self.image = pygame.image.load(r".\assets\images\planes\ship_001.png").convert_alpha()
+		self.image = pygame.image.load(paths.Paths["plane_1"]).convert_alpha()
 		self.image = pygame.transform.scale(self.image, (64,64))
 		self.o_image = self.image
 		self.rect = self.image.get_rect(center=pos)
