@@ -1,4 +1,7 @@
+
 import pygame
+from typing import Self
+from ..control import ControlType
 from ..constants import \
     SCREEN_WIDTH, \
     SCREEN_HEIGHT, \
@@ -17,9 +20,15 @@ class Settings:
         self.caption = CAPTION
         self.flags = pygame.SHOWN
         self.frame_rate = FRAME_RATE
+        self.controller = ControlType.MOUSEKEYBOARD
         self.bg_color = BG_COLOR
         self.fg_color = FG_COLOR
         self.font_name = FONT_NAME
+
+    def __new__(cls) -> Self:
+        if not hasattr(cls, 'instance'):
+            cls.instance = super(type(cls), cls).__new__(cls)
+        return cls.instance
 
     @property
     def width(self) -> int:

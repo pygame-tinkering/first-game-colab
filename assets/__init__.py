@@ -1,6 +1,8 @@
 
 
-from source import *
+from .paths import *
+
+
 
 
 

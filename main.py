@@ -1,6 +1,6 @@
 
 import pygame
-from src import Settings
+from source import Settings
 
 def main():
     pygame.init()
@@ -15,8 +15,8 @@ def main():
         vsync=0,
     )
 
-    from src import Game
-    game = Game(settings)
+    from source import Game
+    game = Game()
     game.run()
     pygame.quit()
     quit()
