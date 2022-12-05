@@ -1,64 +1,79 @@
 import pygame
 import math 
-from assets import paths
+from .entity import Entity
+from .bullet import Bullet
 
-class Player(pygame.sprite.Sprite):
-	def __init__(self, pos, group):
-		super().__init__(group)
+
+class Player(Entity):
+	def __init__(self, pos, group, level):
+		super().__init__(
+			pos, 
+			pygame.image.load(r".\assets\images\planes\ship_001.png").convert_alpha(),
+		 	group
+		)
+
+		self.level = level
 
 		# general setup
-		self.image = pygame.image.load(paths.Paths["plane_1"]).convert_alpha()
 		self.image = pygame.transform.scale(self.image, (64,64))
 		self.o_image = self.image
-		self.rect = self.image.get_rect(center=pos)
-		# self.image = rot_center(self.image, 45, self.rect.center[0], self.rect.center[1])
+
 		# movement attributes
-		self.direction = pygame.math.Vector2()
-		self.pos = pygame.math.Vector2(self.rect.center)
-		self.speed = 5 
-		self.facing_direct = 0
+		self.inertia = 0 # 0.0 to 1.0
+		self.drag = 0.02
+		self.acceleration = 0.1
+		self.speed = 7 
+
+		self.angleDirection = 45
+		self.angleChangeSpeed = 3
+
 		##junk
 		self.counter =0 
 
 	def input(self):
 		keys = pygame.key.get_pressed()
-		mouse_pos = pygame.mouse.get_pos()
-		# handle movement direction y axis
+
+		appliedAcceleration = False # False if the player didn't "move"
+
 		if keys[pygame.K_w]:
-			self.direction.y = -1
-		elif keys[pygame.K_s]:
-			self.direction.y = 1
-		else:
-			self.direction.y = 0
-		# handle movement direction x axis
+			self.inertia += self.acceleration
+			appliedAcceleration = True
+
+		if self.inertia > 1:
+			self.inertia = 1
+
+		# Change the angle at which you're moving
+		if keys[pygame.K_a]:
+			self.angleDirection -= self.angleChangeSpeed
 		if keys[pygame.K_d]:
-			self.direction.x = 1
-		elif keys[pygame.K_a]:
-			self.direction.x = -1
-		else:
-			self.direction.x = 0
-		# handle facing direction (should always face mouse pointer)
-		self.facing_direct = pygame.math.Vector2(mouse_pos) - pygame.math.Vector2(self.rect.center)
+			self.angleDirection += self.angleChangeSpeed
+
+		# Apply drag if the player didn't move.
+		if not appliedAcceleration:   
+			self.inertia -= self.drag
+			self.inertia = max(self.inertia, 0)
+
+		# handle facing direction
+		self.facing_direction = pygame.math.Vector2(1, 0).rotate(self.angleDirection)
 
 	def move(self):
-		# normalizing a vector 
-		if self.direction.magnitude() > 0:
-			self.direction = self.direction.normalize()
+		moveDirection = math.radians(self.angleDirection)
 
-		# horizontal movement
-		self.pos.x += self.direction.x * self.speed
+		self.pos.x += self.speed*math.cos(moveDirection) * self.inertia
 		self.rect.centerx = self.pos.x
-
-		# vertical movement
-		self.pos.y += self.direction.y * self.speed
+		
+		self.pos.y += self.speed*math.sin(moveDirection) * self.inertia
 		self.rect.centery = self.pos.y
-
-		# rotation
-		self.rot_center(-(self.facing_direct.as_polar()[1]+90))
+		
+		# Rotate visually
+		self.rot_center(-self.angleDirection-90)
 
 	def update(self):
 		self.input()
 		self.move()
+		self.shoot()
+
+		super().update()
 		
 		self.counter += 0.5
 
@@ -66,4 +81,11 @@ class Player(pygame.sprite.Sprite):
 		"""rotate an image while keeping its center"""
 		self.image = pygame.transform.rotate(self.o_image, angle)
 		self.rect = self.image.get_rect(center=self.rect.center)
-		# return rot_image, rot_rect
+
+
+	def shoot(self):
+		events = self.level.gameObject.frameEvents
+		for event in events:
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_SPACE:
+					b = Bullet(self.rect.center, self.level.all_sprites, self.angleDirection)

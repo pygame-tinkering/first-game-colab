@@ -1,4 +1,3 @@
-
 import pygame
 from .settings import Settings
 from .level_1 import Level
@@ -9,11 +8,13 @@ class Game:
         self.settings = settings
         self.clock = pygame.time.Clock()
         self.running = True
-        self.level = Level()
+        self.level = Level(self)
+        self.frameEvents = []
 
     def handle_events(self) -> None:
-        events = pygame.event.get()
-        for event in events:
+        # events = pygame.event.get()
+        self.frameEvents = pygame.event.get()
+        for event in self.frameEvents:
             if event.type == pygame.QUIT:
                 self.running = False
             elif event.type == pygame.KEYDOWN:
@@ -26,35 +27,3 @@ class Game:
             self.clock.tick(self.settings.frame_rate)
             self.level.run()
             pygame.display.flip()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
