@@ -1,6 +1,5 @@
 
 import pygame
-from types import SimpleNamespace
 from .controller import Controller
 
 class MouseKeyboard(Controller):

@@ -1,7 +1,7 @@
 
 from typing import Iterable
-from ..settings import Settings
 from ..singleton import Singleton
+from ..settings import Settings
 import pygame
 
 class RenderManager(Singleton):

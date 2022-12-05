@@ -1,15 +1,14 @@
 
 from ..animation import Animation, AnimationState
-from ..control import Controller
+from ..control.controller import Controller
 from ..animation import PlayerState
-from os import path
 import pygame
 
 class Entity:
     def __init__(self,
                  position: list[int, int] | tuple[int, int],
                  control: Controller | None = None,
-                 frame_rate: int = 60,
+                 frame_rate: int = 30,
                  ):
         self.animations = {}
         self.rect = pygame.Rect(position, (0, 0))
@@ -57,8 +56,9 @@ class Entity:
 
     def update(self) -> None:
         self.animations.update(self.frame_rate)
-        self.movement()
-        self.check_state()
+        if self.control:
+            self.movement()
+            self.check_state()
 
     def render(self, surface) -> None:
         surface.blit(self.animations.current_surface(), self.rect)

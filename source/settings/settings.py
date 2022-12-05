@@ -1,8 +1,7 @@
 
-from typing import Self
 import pygame
+from typing import Self
 from ..control import ControlType
-
 from ..constants import \
     SCREEN_WIDTH, \
     SCREEN_HEIGHT, \

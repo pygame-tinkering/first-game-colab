@@ -10,7 +10,7 @@ class Animation:
     def __init__(self, animations: dict, animation_states: AnimationState):
         self.animations = animations
         self._state = animation_states
-        self.index = 0
+        self._index = 0
         self.frame_count = 0
 
     def current_surface(self) -> pygame.Surface:
@@ -29,11 +29,20 @@ class Animation:
             self._state = state
             #self.frame_count = 0
 
+    @property
+    def index(self):
+        return self._index
+
+    @index.setter
+    def index(self, value):
+        self._index = value % len(self.animations[self.state.value])
+
     def update(self, frame_rate: int):
         self.frame_count += 1
         if self.frame_count > len(self.animations[self.state.value]) / frame_rate:
             self.frame_count = 0
-            self.index = (self.index + 1) % len(self.animations[self.state.value])
+            self.index += 1
+            #self.index = (self.index + 1) % len(self.animations[self.state.value])
 
     @staticmethod
     def sprite_sheet(size: dict, names: dict, sheet: pygame.Surface, scale=1):
@@ -55,7 +64,7 @@ class Animation:
     def create(cls, sheet_name: str) -> Self:
         data_path, sprite_path, animation_state = AnimationLoader.load(sheet_name)
         with open(data_path, 'r') as meta_data:
-            data = json.load(meta_data)  # Need to load this data only once
+            data = json.load(meta_data)  # Need to load this data only once - ThisProgrammerG
             size, names = data.get(sheet_name).values()
             sheet = pygame.image.load(sprite_path).convert_alpha()
             animations = Animation.sprite_sheet(size, names, sheet, 3)
