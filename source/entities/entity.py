@@ -15,6 +15,7 @@ class Entity:
         self.control = control
         self.frame_rate = frame_rate
         self.speed = 5
+        self._shoot = False
 
     def load_animations(self, sheet_name: str):
         self.animations = Animation.create(sheet_name)
@@ -51,8 +52,13 @@ class Entity:
             self.animations.state = PlayerState.RIGHT
             self.rect.x += self.speed
 
-    def shoot(self):
-        pass
+    @property
+    def shoot(self) -> bool:
+        return self._shoot
+
+    @shoot.setter
+    def shoot(self, value: bool):
+        self._shoot = value
 
     def update(self) -> None:
         self.animations.update(self.frame_rate)
@@ -60,7 +66,7 @@ class Entity:
             self.movement()
             self.check_state()
             if self.control.click.left:
-                self.shoot()
+                self.shoot = True
 
     def render(self, surface) -> None:
         surface.blit(self.animations.current_surface(), self.rect)

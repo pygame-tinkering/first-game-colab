@@ -90,6 +90,7 @@ class Game:
     def run(self) -> None:
         while self.running:
             self.event_manager.notify(pygame.event.get())
+            self.object_manager.update()
             self.update_manager.update(self.object_manager.get_objects() + self.ui_manager.get_elements())
             self.render_manager.render(self.screen, self.object_manager.get_objects() + self.ui_manager.get_elements())
 
