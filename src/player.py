@@ -27,8 +27,9 @@ class Player(Entity):
 		self.angleDirection = 45
 		self.angleChangeSpeed = 3
 
-		##junk
-		self.counter =0 
+		# shooting attributes
+		self.shotCooldown = 250 
+		self.delayCounter = 0
 
 	def input(self):
 		keys = pygame.key.get_pressed()
@@ -52,9 +53,9 @@ class Player(Entity):
 		if not appliedAcceleration:   
 			self.inertia -= self.drag
 			self.inertia = max(self.inertia, 0)
-
-		# handle facing direction
-		self.facing_direction = pygame.math.Vector2(1, 0).rotate(self.angleDirection)
+		
+		if keys[pygame.K_SPACE]:
+			self.shoot()
 
 	def move(self):
 		moveDirection = math.radians(self.angleDirection)
@@ -71,21 +72,18 @@ class Player(Entity):
 	def update(self):
 		self.input()
 		self.move()
-		self.shoot()
+		# self.shoot()
 
 		super().update()
-		
-		self.counter += 0.5
 
 	def rot_center(self, angle):
 		"""rotate an image while keeping its center"""
 		self.image = pygame.transform.rotate(self.o_image, angle)
 		self.rect = self.image.get_rect(center=self.rect.center)
 
-
 	def shoot(self):
-		events = self.level.gameObject.frameEvents
-		for event in events:
-			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_SPACE:
-					b = Bullet(self.rect.center, self.level.all_sprites, self.angleDirection)
+		self.delayCounter += self.level.gameObject.clock.get_time()
+		if self.delayCounter > self.shotCooldown:
+			b = Bullet(self.rect.center, self.level.all_sprites, self.angleDirection)
+			self.delayCounter = 0 
+					
