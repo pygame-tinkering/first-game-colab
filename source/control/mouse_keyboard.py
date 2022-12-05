@@ -32,8 +32,14 @@ class MouseKeyboard(Controller):
             left, middle, right = event.buttons
         elif event.type == pygame.MOUSEWHEEL:
             pass
-        else:
+        elif event.type == pygame.MOUSEBUTTONDOWN:
             button = event.button
+            if button == 1:
+                self.click.left = True
+        elif event.type == pygame.MOUSEBUTTONUP:
+            button = event.button
+            if button == 1:
+                self.click.left = False
 
 
 

@@ -59,6 +59,8 @@ class Entity:
         if self.control:
             self.movement()
             self.check_state()
+            if self.control.click.left:
+                self.shoot()
 
     def render(self, surface) -> None:
         surface.blit(self.animations.current_surface(), self.rect)
