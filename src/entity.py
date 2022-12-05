@@ -10,6 +10,8 @@ class Entity(pygame.sprite.Sprite):
         self.image = image
         self.rect = image.get_rect(center=pos)
         
+        self.pos = pygame.math.Vector2(self.rect.center)
+
         self.health = 100
         self.maxHealth = 100
         self.regenPerSecond = 10

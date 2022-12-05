@@ -3,8 +3,8 @@ import pygame
 from .player import Player
 
 class Level:
-	def __init__(self):
-
+	def __init__(self, game):
+		self.gameObject = game
 		# get the display surface
 		self.display_surface = pygame.display.get_surface()
 
@@ -14,9 +14,10 @@ class Level:
 		self.setup()
 
 	def setup(self):
-		self.player = Player((340,360), self.all_sprites)
+		self.player = Player((340,360), self.all_sprites, self)
 
 	def run(self):
 		self.display_surface.fill('black')
 		self.all_sprites.update()
 		self.all_sprites.draw(self.display_surface)
+
