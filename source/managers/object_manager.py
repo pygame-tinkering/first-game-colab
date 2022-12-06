@@ -1,9 +1,15 @@
 
+import pygame
 from typing import Iterable
 from ..singleton import Singleton
 from ..entities import Entity, Bullet
 from ..control import Controller
 from ..managers import EventManager
+
+def get_direction_pygame(source_position):
+    target_position = pygame.Vector2(pygame.mouse.get_pos())
+    direction = (target_position - source_position).normalize()
+    return direction
 
 class ObjectManager(Singleton):
     def __init__(self):
@@ -37,7 +43,10 @@ class ObjectManager(Singleton):
     def update(self) -> None:
         for entity in self.objects.get('Entity'):
             if entity.shoot:
-                bullet = Bullet(entity.rect.center)  # Weapon position later
+                position = entity.rect.center
+                bullet = Bullet(position)  # Weapon position later
+                direction = get_direction_pygame(position)
+                bullet.apply_force(direction * bullet.speed)
                 entity.shoot = False
                 self.add(bullet)
 
