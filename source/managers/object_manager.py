@@ -6,7 +6,7 @@ from ..entities import Entity, Bullet
 from ..control import Controller
 from ..managers import EventManager
 
-def get_direction_pygame(source_position):
+def get_direction_pygame(source_position: tuple[float, float] | list[int, int] | pygame.Vector2):
     target_position = pygame.Vector2(pygame.mouse.get_pos())
     direction = (target_position - source_position).normalize()
     return direction
