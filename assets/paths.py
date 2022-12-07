@@ -32,10 +32,20 @@ IMAGE_DIR = os.path.join(ASSETS_DIR, 'images')
 MUSICS_DIR = os.path.join(ASSETS_DIR, 'musics')
 SOUNDS_DIR = os.path.join(ASSETS_DIR, 'sounds')
 
+# FONTS
 FONTS = get_fonts()
 
+# SPRITE and SPRITE_DATA
 CHARACTER_SPRITE_PATH = image_path('character.png')
 CHARACTER_DATA_PATH = image_path('character.txt')
+
+
+# MUSICS
+TEST_MUSIC = musics_path('Retro Music - ABMU - ChipWave 01.wav')
+
+# SOUNDS
+TEST_SHOOT_SFX = sounds_path('Retro Gun SingleShot 04.wav')
+
 
 
 

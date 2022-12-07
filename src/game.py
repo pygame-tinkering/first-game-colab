@@ -2,7 +2,12 @@
 import pygame
 
 from .settings import Settings
-from .managers import EventManager, RenderManager, UpdateManager, UIManager, ObjectManager
+from .managers import EventManager, \
+    RenderManager, \
+    UpdateManager, \
+    UIManager, \
+    ObjectManager, \
+    AudioManager
 from .control import MouseKeyboard
 from .ui import Button
 from .ui import Font
@@ -16,7 +21,10 @@ class Game:
         self.render_manager = RenderManager()
         self.update_manager = UpdateManager()
         self.ui_manager = UIManager()
+        self.audio_manager = AudioManager()
         self.object_manager = ObjectManager()
+
+        self.audio_manager.play_music('None')
 
         self._create_entities()
         self._create_ui()
