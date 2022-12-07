@@ -27,7 +27,7 @@ def main():
     game = Game()
     game.run()
     pygame.quit()
-    quit()
+    raise SystemExit
 
 
 if __name__ == '__main__':
