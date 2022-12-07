@@ -1,8 +1,16 @@
 
 import pygame
-from source import Settings
+from src import Settings
 
 def main():
+    pygame.mixer.pre_init(
+        frequency=44100,
+        size=-16,
+        channels=2,
+        buffer=512,
+        devicename=None,
+        allowedchanges=pygame.AUDIO_ALLOW_FREQUENCY_CHANGE | pygame.AUDIO_ALLOW_CHANNELS_CHANGE
+    )
     pygame.init()
     settings = Settings()
 
@@ -15,7 +23,7 @@ def main():
         vsync=0,
     )
 
-    from source import Game
+    from src import Game
     game = Game()
     game.run()
     pygame.quit()

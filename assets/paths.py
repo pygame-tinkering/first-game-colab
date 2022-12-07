@@ -34,7 +34,7 @@ SOUNDS_DIR = os.path.join(ASSETS_DIR, 'sounds')
 
 FONTS = get_fonts()
 
-CHARACTER_PATH = image_path('character.png')
+CHARACTER_SPRITE_PATH = image_path('character.png')
 CHARACTER_DATA_PATH = image_path('character.txt')
 
 
