@@ -1,20 +1,19 @@
 
 from typing import Self
-from os import path
 from .animation_loader import AnimationLoader
 from .animation_state import AnimationState
 import json
 import pygame
 
 class Animation:
-    def __init__(self, animations: dict, animation_states: AnimationState):
+    def __init__(self, animations: dict, animation_state: AnimationState):
         self.animations = animations
-        self._state = animation_states
+        self._state = animation_state
         self._index = 0
         self.frame_count = 0
 
     def current_surface(self) -> pygame.Surface:
-        return self.animations[self.state.value][self.index]
+        return self.animations[self.state][self.index]
 
     def get_rect(self, **kwargs) -> pygame.Rect:
         return self.current_surface().get_rect(**kwargs)
@@ -35,14 +34,14 @@ class Animation:
 
     @index.setter
     def index(self, value):
-        self._index = value % len(self.animations[self.state.value])
+        self._index = value % len(self.animations[self.state])
 
     def update(self, frame_rate: int):
         self.frame_count += 1
-        if self.frame_count > len(self.animations[self.state.value]) / frame_rate:
+        if self.frame_count > len(self.animations[self.state]) / frame_rate:
             self.frame_count = 0
             self.index += 1
-            #self.index = (self.index + 1) % len(self.animations[self.state.value])
+            #self.index = (self.index + 1) % len(self.animations[self.state])
 
     @staticmethod
     def sprite_sheet(size: dict, names: dict, sheet: pygame.Surface, scale=1):

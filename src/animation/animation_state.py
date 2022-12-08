@@ -1,7 +1,7 @@
 
-from enum import Enum
+from enum import StrEnum
 
-class AnimationState(Enum):
+class AnimationState(StrEnum):
     pass
 
 

@@ -8,7 +8,7 @@ from ..managers.event_manager import EventManager
 from ..managers.audio_manager import AudioManager
 #from ..managers import EventManager, AudioManager
 
-# Find appropriate file to move function
+# Move function to appropriate file
 def get_direction_to_mouse(source_position: tuple[float, float] | list[int, int] | pygame.Vector2):
     target_position = pygame.Vector2(pygame.mouse.get_pos())
     direction = (target_position - source_position).normalize()
@@ -16,7 +16,7 @@ def get_direction_to_mouse(source_position: tuple[float, float] | list[int, int]
 
 class ObjectManager(Singleton):
     def __init__(self):
-        self.objects = {}
+        self.objects = {}  # Should be a class? DefaultDict?
         self.event_manager = EventManager()
         self.audio_manager = AudioManager()
 
@@ -51,7 +51,7 @@ class ObjectManager(Singleton):
                 bullet = Bullet(position)  # Weapon position later
                 direction = get_direction_to_mouse(position)
                 bullet.apply_force(direction * bullet.speed)
-                self.audio_manager.play_sound('None')
+                self.audio_manager.play_sound('test')
                 entity.shoot = False
                 self.add(bullet)
 
