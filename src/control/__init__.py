@@ -1,8 +1,8 @@
 
 
-from .mouse_keyboard import *
-from .control_type import *
-from .controller import *
+from .mouse_keyboard import MouseKeyboard
+from .control_type import ControlType
+from .controller import Controller
 
 
 

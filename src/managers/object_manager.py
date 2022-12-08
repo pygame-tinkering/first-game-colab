@@ -2,29 +2,21 @@
 import pygame
 from typing import Iterable
 from ..singleton import Singleton
-from ..entities import Entity, Projectile
+from ..entities import Entity
 from ..control import Controller
 from ..managers.event_manager import EventManager
 from ..managers.audio_manager import AudioManager
-#from ..managers import EventManager, AudioManager
 from collections import defaultdict
 
 
 class ObjectManager(Singleton):
     def __init__(self):
-        self.objects = defaultdict(lambda: pygame.sprite.Group())  # Should be a class? DefaultDict?
+        self.objects = defaultdict(lambda: pygame.sprite.Group())
         self.event_manager = EventManager()
         self.audio_manager = AudioManager()
 
     def _add(self, obj: object):
         object_type = type(obj).__name__
-        """
-        group = self.objects.get(object_type)
-        if group:
-            group.add(obj)
-        else:
-            #self.objects.update({object_type: [obj]})
-        """
         self.objects[object_type].add(obj)
 
 

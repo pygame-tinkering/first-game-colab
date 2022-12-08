@@ -1,7 +1,7 @@
 
-from .ui import *
-from .button import *
-from .font import *
+from .ui import UI
+from .button import Button
+from .font import Font
 
 
 

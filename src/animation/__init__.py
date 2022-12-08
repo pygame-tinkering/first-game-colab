@@ -1,8 +1,9 @@
 
 
-from .animation import *
-from .animation_state import *
-from .player_state import *
+from .animation import Animation
+from .animation_state import AnimationState
+from .player_state import PlayerState
+from .image_loader import ImageLoader
 
 
 

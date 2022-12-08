@@ -1,8 +1,6 @@
 
-from typing import Iterable
 import pygame
 from .projectile import Projectile
-from ..animation import Animation
 from ..animation import ImageLoader
 
 class Weapon(pygame.sprite.Sprite):

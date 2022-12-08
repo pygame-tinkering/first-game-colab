@@ -1,7 +1,8 @@
 
 
-from .entity import *
-from .projectile import *
+from .entity import Entity
+from .projectile import Projectile
+from .weapon import Weapon
 
 
 
