@@ -7,26 +7,26 @@ from ..control import Controller
 from ..managers.event_manager import EventManager
 from ..managers.audio_manager import AudioManager
 #from ..managers import EventManager, AudioManager
+from collections import defaultdict
 
-# Move function to appropriate file
-def get_direction_to_mouse(source_position: tuple[float, float] | list[int, int] | pygame.Vector2):
-    target_position = pygame.Vector2(pygame.mouse.get_pos())
-    direction = (target_position - source_position).normalize()
-    return direction
 
 class ObjectManager(Singleton):
     def __init__(self):
-        self.objects = {}  # Should be a class? DefaultDict?
+        self.objects = defaultdict(lambda: pygame.sprite.Group())  # Should be a class? DefaultDict?
         self.event_manager = EventManager()
         self.audio_manager = AudioManager()
 
     def _add(self, obj: object):
         object_type = type(obj).__name__
-        objects = self.objects.get(object_type)
-        if objects:
-            objects.append(obj)
+        """
+        group = self.objects.get(object_type)
+        if group:
+            group.add(obj)
         else:
-            self.objects.update({object_type: [obj]})
+            #self.objects.update({object_type: [obj]})
+        """
+        self.objects[object_type].add(obj)
+
 
     def add(self, objects: Iterable | object):
         if isinstance(objects, Iterable):
@@ -42,18 +42,22 @@ class ObjectManager(Singleton):
                frame_rate: int = 60,) -> None:
         entity = Entity(position, control, frame_rate)
         entity.load_animations(sheet_name)
+        if entity.weapon:
+            self.add(entity.weapon)
         self.add(entity)
 
     def update(self) -> None:
-        for entity in self.objects.get('Entity'):
-            if entity.shoot:
-                position = entity.rect.center
-                bullet = Bullet(position)  # Weapon position later
-                direction = get_direction_to_mouse(position)
-                bullet.apply_force(direction * bullet.speed)
-                self.audio_manager.play_sound('test')
-                entity.shoot = False
+        entity_with_weapons = (entity
+                               for entity in self.objects.get('Entity')
+                               if hasattr(entity, 'weapon') and entity.weapon
+                               )
+        for entity in entity_with_weapons:
+            if entity.weapon.has_shot and entity.weapon.can_shoot:
+                bullet = entity.weapon.shoot()
+                self.audio_manager.play_sound('test')  # Add observer patter
                 self.add(bullet)
+
+
 
     def get_objects(self) -> list:
         return list(self.objects.values())

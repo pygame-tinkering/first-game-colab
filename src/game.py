@@ -52,15 +52,14 @@ class Game:
 
     def _create_ui(self):
         self.ui_manager.add(
-            Button(
-                size=(150,50),
-                position=(100, 50),
-                bg_color='red',
-                fg_color='white',
-                font=Font(
-                    name=self.settings.font_name,
-                    size=24,
-                    text='Button'
+            Button(size=(150,50),
+                   position=(100, 50),
+                   bg_color='red',
+                   fg_color='white',
+                   font=Font(
+                       name=self.settings.font_name,
+                       size=24,
+                       text='Button'
                 )
             )
         )
@@ -69,11 +68,10 @@ class Game:
         self.event_manager.subscribe(pygame.QUIT,
                                      self, lambda event: self._quit(event)
                                      )
-        controlled_entities = (
-            entity
-            for group in self.object_manager.get_objects()
-            for entity in group
-            if entity.control
+        controlled_entities = (entity
+                               for group in self.object_manager.get_objects()
+                               for entity in group
+                               if hasattr(entity, 'control') and entity.control
         )
         for entity in controlled_entities:
             if isinstance(entity.control, MouseKeyboard):

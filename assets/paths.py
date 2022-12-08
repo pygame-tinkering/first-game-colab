@@ -38,7 +38,8 @@ FONTS = get_fonts()
 # SPRITE and SPRITE_DATA
 CHARACTER_SPRITE_PATH = image_path('character.png')
 CHARACTER_DATA_PATH = image_path('character.txt')
-
+ITEMSPACK_SPRITE_PATH = image_path('itemspack.png')
+ITEMSPACK_DATA_PATH = image_path('itemspack.txt')
 
 # MUSICS
 TEST_MUSIC = musics_path('Retro Music - ABMU - ChipWave 01.wav')
