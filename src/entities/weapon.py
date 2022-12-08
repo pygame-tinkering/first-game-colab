@@ -1,7 +1,7 @@
 
 from typing import Iterable
 import pygame
-from .bullet import Bullet
+from .projectile import Projectile
 from ..animation import Animation
 from ..animation import ImageLoader
 
@@ -15,14 +15,16 @@ class Weapon(pygame.sprite.Sprite):
         #self.animations = {}
         self.image = ImageLoader.load_image('itemspack')
         self.rect = pygame.Rect(position, (0, 0))
-        self.frame_rate = frame_rate
+        self.frame_rate: int = frame_rate
+        self.fire_rate: int = 10
+        self.can_shoot: bool = True
+        self.max_range: int = 200
+        self._cooldown: int = 0
         self._has_shot: bool = False
-        self.fire_rate = 10
-        self.can_shoot = True
-        self._cooldown = 0
-        self.max_range = 200
 
         # Refactor weapon stats into dictionary for easier loading
+        # Call it WeaponLoader
+        # Also need ProjectileLoader
 
     def load_animations(self, sheet_name: str):
         #self.animations = Animation.create(sheet_name)
@@ -46,8 +48,8 @@ class Weapon(pygame.sprite.Sprite):
         if self._cooldown <= 0:
             self.can_shoot = True
 
-    def shoot(self) -> Bullet:
-        bullet = Bullet(self.rect.center, self.max_range)
+    def shoot(self) -> Projectile:
+        bullet = Projectile(self.rect.center, self.max_range)
         direction = self.get_direction_towards_mouse()
         bullet.apply_force(direction * bullet.speed)
         self.has_shot = False

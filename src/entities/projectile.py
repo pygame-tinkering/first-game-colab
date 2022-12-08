@@ -1,7 +1,7 @@
 
 import pygame
 
-class Bullet(pygame.sprite.Sprite):
+class Projectile(pygame.sprite.Sprite):
     def __init__(self,
                  position: tuple[int, int] | list[int, int],
                  max_distance: int,

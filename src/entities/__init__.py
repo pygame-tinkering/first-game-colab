@@ -1,7 +1,7 @@
 
 
 from .entity import *
-from .bullet import *
+from .projectile import *
 
 
 

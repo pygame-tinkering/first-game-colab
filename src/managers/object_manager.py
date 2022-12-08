@@ -2,7 +2,7 @@
 import pygame
 from typing import Iterable
 from ..singleton import Singleton
-from ..entities import Entity, Bullet
+from ..entities import Entity, Projectile
 from ..control import Controller
 from ..managers.event_manager import EventManager
 from ..managers.audio_manager import AudioManager
