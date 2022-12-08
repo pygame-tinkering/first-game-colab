@@ -5,7 +5,7 @@ FRAME_RATE = 60
 
 BG_COLOR = 'black'
 FG_COLOR = 'white'
-FONT_NAME = 'arial'
+FONT_NAME = 'clarity'
 
 
 

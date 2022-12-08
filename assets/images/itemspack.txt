@@ -1,0 +1,11 @@
+{
+	"itemspack": {
+        "size": {
+          "width": 32,
+          "height": 32
+        },
+        "names": {
+          "single": 1
+        }
+    }
+}
